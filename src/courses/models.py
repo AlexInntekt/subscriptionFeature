@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from memberships.models import Membership
+from django.urls import reverse
 
 
 class Course(models.Model):
@@ -14,6 +15,9 @@ class Course(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return reverse('courses:detail', kwargs={'slug':self.slug})
 
 
 
