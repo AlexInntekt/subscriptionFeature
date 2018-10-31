@@ -8,6 +8,8 @@ from django.views.generic import ListView, DetailView, View
 
 from .models import Course, Lesson
 
+from memberships.models import UserMembership
+
 
 class CourseListView(ListView):
 	model = Course
@@ -25,6 +27,9 @@ class LessonDetailView(View):
 		if lesson_qs.exists():
 			lesson = lesson_qs.first()
 
+
+		user_membership = UserMembership.objects.filter(user=request.user).first()
+		user_membership_type = user_membership.membership.membership_type
 
 		context = {
 			'object': lesson
