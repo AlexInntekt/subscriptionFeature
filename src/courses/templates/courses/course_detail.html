@@ -8,6 +8,15 @@
 	<h1> {{ object.title }}</h1>
 
 	<h4> {{ object.description }} </h4>
+
+
+	<ol>
+	{% for lesson in object.lessons %}
+
+	   <li><a href="{{lesson.get_absolute_url}}"> {{lesson.title}} </a></li>
+	 	
+	{% endfor %}
+   </ol>
 </body>
 
 
