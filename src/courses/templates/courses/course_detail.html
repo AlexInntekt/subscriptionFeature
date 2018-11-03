@@ -1,9 +1,7 @@
-<html>
-<head>
 
-</head>
+{% extends 'courses/base.html' %}
 
-<body>
+{% block content %}
 	
 	<h1> {{ object.title }}</h1>
 
@@ -17,7 +15,6 @@
 	 	
 	{% endfor %}
    </ol>
-</body>
 
 
-</html>
+{% endblock %}
