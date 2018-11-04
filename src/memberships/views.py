@@ -29,6 +29,10 @@ class MembershipSelectView(ListView):
 		return context
 
 
+	def post(self, request,**kwargs):
+		selected_membership = request.POST.get('membership_type')
+		print(selected_membership)
+		return selected_membership
 
 
 
