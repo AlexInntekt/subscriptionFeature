@@ -18,9 +18,13 @@
 		{% endblock %}
 
 		{% if not request.user.is_authenticated %}
-		<li class='pul-right' style="padding: 5px;"><a href='/register'> Register </a><li>
-		<li class='pul-right' style="padding: 5px;"><a href='/login'> Login</a></li>
+		<!-- <li class='pul-right' style="padding: 5px;"><a href='/register'> Register </a><li> -->
+		<li class='pul-right' style="padding: 5px;"><a href='/admin'> Login</a></li>
 		</a></li>
+		{% endif %}
+
+		{% if request.user.is_authenticated %}
+		<li style="padding-left: 700;"> Hey {{request.user.username}}!</li>
 		{% endif %}
 	</ol>
 </div>
