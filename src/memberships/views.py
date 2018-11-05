@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView
+import stripe
 
 from .models import Membership, UserMembership, Subscription
 
@@ -65,6 +66,24 @@ class MembershipSelectView(ListView):
 
 		return HttpResponseRedirect(reverse('membership:payment'))
 
+
+
+def get_selected_membership(request):
+	membership_type = request.session['selected_membership_type']
+	selected_membership_qs = Membership.objects.filter(membership_type=selected_membership_type)
+	if selected_membership_qs.exists():
+	  return selected_membership_qs.first()
+	return None
+
+
+def PaymentView(request):
+
+	user_membership = get_user_membership(request)
+	selected_membership = get_selected_membership(request)
+
+	publishKey = settings.STRIPE_PUBLISHABLE_KEY
+
+	
 
 
 
