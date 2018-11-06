@@ -83,9 +83,10 @@ class MembershipSelectView(ListView):
 
 def get_selected_membership(request):
 	membership_type = request.session['selected_membership_type']
-	selected_membership_qs = Membership.objects.filter(membership_type=selected_membership_type)
+	selected_membership_qs = Membership.objects.filter(
+				membership_type=membership_type)
 	if selected_membership_qs.exists():
-	  return selected_membership_qs.first()
+		return selected_membership_qs.first()
 	return None
 
 
@@ -101,7 +102,7 @@ def PaymentView(request):
 		'selected_membership':selected_membership
 	}
 
-	return render(request,"membership/membership_payment.html", context)
+	return render(request,"memberships/membership_payment.html", context)
 
 
 
