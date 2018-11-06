@@ -19,7 +19,15 @@ class CourseDetailView(DetailView):
 
 class LessonDetailView(View):
 	def get(self, request, course_slug, lesson_slug, *args, **kwargs):
+		print('LLLLL: ')
+		print('self: ', self)
+		print('request: ', request)
+		print('course_slug: ', course_slug)
+		print('lesson_slug: ', lesson_slug)
+
+
 		course_qs = Course.objects.filter(slug=course_slug)
+
 		if course_qs.exists():
 			course = course_qs.first()
 

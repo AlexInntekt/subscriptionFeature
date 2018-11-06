@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 import stripe
+from django.conf import settings
 
 from .models import Membership, UserMembership, Subscription
 
@@ -27,6 +28,7 @@ def get_user_subscription(request):
 		return user_subscription
 	return None
 
+
 class MembershipSelectView(ListView):
 	model = Membership
 
@@ -35,10 +37,16 @@ class MembershipSelectView(ListView):
 		current_membership = get_user_membership(self.request)
 		context['current_membership'] = str(current_membership.membership)
 
+		
+
 		return context
+
+
 
 	def post(self, request, **kwargs):
 		selected_membership_type = request.POST.get('membership_type')
+
+		print('4w3h45h')
 
 		user_membership = get_user_membership(request)
 		user_subscription = get_user_subscription(request)
@@ -46,6 +54,8 @@ class MembershipSelectView(ListView):
 		selected_membership_qs = Membership.objects.filter(
 				membership_type=selected_membership_type
 			)
+
+
 		if selected_membership_qs.exists():
 			selected_membership = selected_membership_qs.first()
 
@@ -61,10 +71,13 @@ class MembershipSelectView(ListView):
 				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+
+
 		# assign to the session
 		request.session['selected_membership_type'] = selected_membership.membership_type
 
-		return HttpResponseRedirect(reverse('membership:payment'))
+
+		return HttpResponseRedirect(reverse('memberships:payment'))
 
 
 
@@ -83,7 +96,14 @@ def PaymentView(request):
 
 	publishKey = settings.STRIPE_PUBLISHABLE_KEY
 
-	
+	context = {
+		'publishKey':publishKey,
+		'selected_membership':selected_membership
+	}
+
+	return render(request,"membership/membership_payment.html", context)
+
+
 
 
 
