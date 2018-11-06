@@ -100,6 +100,7 @@ def PaymentView(request):
 	context = {
 		'publishKey':publishKey,
 		'selected_membership':selected_membership
+		
 	}
 
 	return render(request,"memberships/membership_payment.html", context)
